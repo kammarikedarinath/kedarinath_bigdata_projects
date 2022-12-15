@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "DelimitedText3",
+						"referenceName": "dataflow_stage",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"

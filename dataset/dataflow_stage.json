@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText3",
+	"name": "dataflow_stage",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LSKEDARINATHGEN2",
