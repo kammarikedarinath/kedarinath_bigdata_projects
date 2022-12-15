@@ -1,0 +1,125 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "DEV-DF-KEDARINATH"
+		},
+		"ConnectolocalsystemIIT_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ConnectolocalsystemIIT'"
+		},
+		"KKNDESKTOPFILESYSTEM_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'KKNDESKTOPFILESYSTEM'"
+		},
+		"LSKEDARINATHGEN2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LSKEDARINATHGEN2'"
+		},
+		"LS_KKNAzureSqlDatabase_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_KKNAzureSqlDatabase'"
+		},
+		"ConnectolocalsystemIIT_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "\\\\SlkJava20.iiht.tech\\c$\\Users\\slkazdf19\\Downloads"
+		},
+		"ConnectolocalsystemIIT_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "IIHT\\slkazdf19"
+		},
+		"KKNDESKTOPFILESYSTEM_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "\\\\kedarinath\\\\c$\\Users\\Admin\\Desktop\\ADF-Training-main\\PROJECT"
+		},
+		"KKNDESKTOPFILESYSTEM_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "Admin"
+		},
+		"LSKEDARINATHGEN2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://vfislktraning.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "DEV-DF-KEDARINATH_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"LSKEDARINATHGEN2_accountKey": {
+						"value": "[parameters('LSKEDARINATHGEN2_accountKey')]"
+					},
+					"LS_KKNAzureSqlDatabase_connectionString": {
+						"value": "[parameters('LS_KKNAzureSqlDatabase_connectionString')]"
+					},
+					"LSKEDARINATHGEN2_properties_typeProperties_url": {
+						"value": "[parameters('LSKEDARINATHGEN2_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "DEV-DF-KEDARINATH_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"ConnectolocalsystemIIT_password": {
+						"value": "[parameters('ConnectolocalsystemIIT_password')]"
+					},
+					"KKNDESKTOPFILESYSTEM_password": {
+						"value": "[parameters('KKNDESKTOPFILESYSTEM_password')]"
+					},
+					"ConnectolocalsystemIIT_properties_typeProperties_host": {
+						"value": "[parameters('ConnectolocalsystemIIT_properties_typeProperties_host')]"
+					},
+					"ConnectolocalsystemIIT_properties_typeProperties_userId": {
+						"value": "[parameters('ConnectolocalsystemIIT_properties_typeProperties_userId')]"
+					},
+					"KKNDESKTOPFILESYSTEM_properties_typeProperties_host": {
+						"value": "[parameters('KKNDESKTOPFILESYSTEM_properties_typeProperties_host')]"
+					},
+					"KKNDESKTOPFILESYSTEM_properties_typeProperties_userId": {
+						"value": "[parameters('KKNDESKTOPFILESYSTEM_properties_typeProperties_userId')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'DEV-DF-KEDARINATH_ArmTemplate_0')]"
+			]
+		}
+	]
+}

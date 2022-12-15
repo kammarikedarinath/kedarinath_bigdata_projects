@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "DEV-DF-KEDARINATH"
+		},
+		"ConnectolocalsystemIIT_password": {
+			"value": ""
+		},
+		"KKNDESKTOPFILESYSTEM_password": {
+			"value": ""
+		},
+		"LSKEDARINATHGEN2_accountKey": {
+			"value": ""
+		},
+		"LS_KKNAzureSqlDatabase_connectionString": {
+			"value": ""
+		},
+		"ConnectolocalsystemIIT_properties_typeProperties_host": {
+			"value": "\\\\SlkJava20.iiht.tech\\c$\\Users\\slkazdf19\\Downloads"
+		},
+		"ConnectolocalsystemIIT_properties_typeProperties_userId": {
+			"value": "IIHT\\slkazdf19"
+		},
+		"KKNDESKTOPFILESYSTEM_properties_typeProperties_host": {
+			"value": "\\\\kedarinath\\\\c$\\Users\\Admin\\Desktop\\ADF-Training-main\\PROJECT"
+		},
+		"KKNDESKTOPFILESYSTEM_properties_typeProperties_userId": {
+			"value": "Admin"
+		},
+		"LSKEDARINATHGEN2_properties_typeProperties_url": {
+			"value": "https://vfislktraning.dfs.core.windows.net/"
+		}
+	}
+}
