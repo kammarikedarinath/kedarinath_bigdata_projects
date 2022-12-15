@@ -1,0 +1,26 @@
+{
+	"name": "LocalSystemtoRaw",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ConnectolocalsystemIIT",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation",
+				"fileName": "ADF-Training-main.zip"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

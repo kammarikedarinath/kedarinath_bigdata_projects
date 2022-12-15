@@ -1,0 +1,7 @@
+{
+	"name": "IR-LocalSystem-IIHT",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "connecting IIT local system"
+	}
+}

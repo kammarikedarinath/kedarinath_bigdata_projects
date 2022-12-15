@@ -1,0 +1,88 @@
+{
+	"name": "capstonedataflow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText2",
+						"type": "DatasetReference"
+					},
+					"name": "rawdataset"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Project",
+						"type": "DatasetReference"
+					},
+					"name": "sink1",
+					"rejectedDataLinkedService": {
+						"referenceName": "LSKEDARINATHGEN2",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
+			"transformations": [
+				{
+					"name": "select1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          country as string,",
+				"          indicator as string,",
+				"          date as string,",
+				"          year_week as string,",
+				"          value as string,",
+				"          source as string,",
+				"          url as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> rawdataset",
+				"rawdataset select(mapColumn(",
+				"          country,",
+				"          indicator,",
+				"          date,",
+				"          {year&week} = year_week,",
+				"          value,",
+				"          source,",
+				"          url",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"rawdataset sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Country as string,",
+				"          Indicator as string,",
+				"          Date as date,",
+				"          Year_Week as string,",
+				"          Value as decimal(22,4),",
+				"          Source as string,",
+				"          Url as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          Country = country,",
+				"          Indicator = indicator,",
+				"          Date = date,",
+				"          Year_Week = year_week,",
+				"          Value = value,",
+				"          Source = source,",
+				"          Url = url",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}

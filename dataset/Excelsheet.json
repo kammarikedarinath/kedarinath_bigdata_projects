@@ -1,0 +1,32 @@
+{
+	"name": "Excelsheet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LSKEDARINATHGEN2",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"shheetindex": {
+				"type": "int",
+				"defaultValue": 0
+			}
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Book1.xlsx",
+				"folderPath": "kedarinath/ReadingExcellfilessheets",
+				"fileSystem": "vfislktraining"
+			},
+			"sheetIndex": {
+				"value": "@dataset().shheetindex",
+				"type": "Expression"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

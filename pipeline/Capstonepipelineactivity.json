@@ -1,0 +1,203 @@
+{
+	"name": "Capstonepipelineactivity",
+	"properties": {
+		"activities": [
+			{
+				"name": "Validation1",
+				"type": "Validation",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "DESKTOPFILE",
+						"type": "DatasetReference",
+						"parameters": {
+							"directory": {
+								"value": "@pipeline().parameters.directory",
+								"type": "Expression"
+							},
+							"filename": {
+								"value": "@pipeline().parameters.filename",
+								"type": "Expression"
+							}
+						}
+					},
+					"timeout": "0.00:01:00",
+					"sleep": 10,
+					"minimumSize": 20
+				}
+			},
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Validation1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "@{pipeline().parameters.directory}/@{pipeline().parameters.filename}"
+					},
+					{
+						"name": "Destination",
+						"value": "vfislktraining/kedarinath/RS_RAW/"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "FileServerReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"validateDataConsistency": true,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Info",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "LSKEDARINATHGEN2",
+								"type": "LinkedServiceReference"
+							},
+							"path": "vfislktraining/kedarinath/Capstone-RAW"
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": false,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DESKTOPFILE",
+						"type": "DatasetReference",
+						"parameters": {
+							"directory": {
+								"value": "@pipeline().parameters.directory",
+								"type": "Expression"
+							},
+							"filename": {
+								"value": "@pipeline().parameters.filename",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "RAW_DATA_SET",
+						"type": "DatasetReference",
+						"parameters": {
+							"RAW_DATA_FILE": {
+								"value": "@pipeline().parameters.filename",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "CheckRecrodsCount",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Copy data1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(int(activity('Copy data1').output.dataRead), int(activity('Copy data1').output.dataWritten))",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Data flow1",
+							"type": "ExecuteDataFlow",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"dataflow": {
+									"referenceName": "capstonedataflow",
+									"type": "DataFlowReference"
+								},
+								"compute": {
+									"coreCount": 8,
+									"computeType": "General"
+								},
+								"traceLevel": "Fine"
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"directory": {
+				"type": "string"
+			},
+			"filename": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"directory": {
+				"type": "String",
+				"defaultValue": "\\Users\\Admin\\Desktop\\ADF-Training-main\\PROJECT\\Testing"
+			},
+			"filename": {
+				"type": "String",
+				"defaultValue": "hospital_admissions.csv"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-12-15T04:17:26Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

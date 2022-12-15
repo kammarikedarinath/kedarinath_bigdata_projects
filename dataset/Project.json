@@ -1,0 +1,48 @@
+{
+	"name": "Project",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_KKNAzureSqlDatabase",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Country",
+				"type": "varchar"
+			},
+			{
+				"name": "Indicator",
+				"type": "varchar"
+			},
+			{
+				"name": "Date",
+				"type": "date"
+			},
+			{
+				"name": "Year_Week",
+				"type": "varchar"
+			},
+			{
+				"name": "Value",
+				"type": "decimal",
+				"precision": 22,
+				"scale": 4
+			},
+			{
+				"name": "Source",
+				"type": "varchar"
+			},
+			{
+				"name": "Url",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "HOSPITAL_ADMISSIONS"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

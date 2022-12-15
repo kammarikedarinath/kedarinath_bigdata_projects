@@ -1,0 +1,58 @@
+{
+	"name": "AzureSqlTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_KKNAzureSqlDatabase",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "CustomerID",
+				"type": "varchar"
+			},
+			{
+				"name": "Title",
+				"type": "varchar"
+			},
+			{
+				"name": "Firstname",
+				"type": "varchar"
+			},
+			{
+				"name": "MiddleName",
+				"type": "varchar"
+			},
+			{
+				"name": "LastName",
+				"type": "varchar"
+			},
+			{
+				"name": "Suffix",
+				"type": "varchar"
+			},
+			{
+				"name": "CompanyName",
+				"type": "varchar"
+			},
+			{
+				"name": "SalesPerson",
+				"type": "varchar"
+			},
+			{
+				"name": "EmailAddress",
+				"type": "varchar"
+			},
+			{
+				"name": "Phone",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "customer"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

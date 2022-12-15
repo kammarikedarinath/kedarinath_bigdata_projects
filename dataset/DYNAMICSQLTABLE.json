@@ -1,0 +1,25 @@
+{
+	"name": "DYNAMICSQLTABLE",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_KKNAzureSqlDatabase",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"SQLTable": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": {
+				"value": "@dataset().SQLTable",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,19 @@
+{
+	"name": "Binary1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LSKEDARINATHGEN2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "kedarinath/RS_UNZIP",
+				"fileSystem": "vfislktraining"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

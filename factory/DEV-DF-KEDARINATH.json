@@ -1,0 +1,14 @@
+{
+	"name": "DEV-DF-KEDARINATH",
+	"properties": {
+		"globalConfigurations": {
+			"PipelineBillingEnabled": "true"
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "13204731-3ba4-43c9-b008-4b35e4d630f1",
+		"tenantId": "61257b95-a3a1-4cb8-b95f-ce6de94ae02f"
+	}
+}

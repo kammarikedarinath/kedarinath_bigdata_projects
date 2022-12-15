@@ -1,0 +1,24 @@
+{
+	"name": "RS_RAW_ZIP",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LSKEDARINATHGEN2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "SCD Demo.zip",
+				"folderPath": "kedarinath/RS_RAW",
+				"fileSystem": "vfislktraining"
+			},
+			"compression": {
+				"type": "ZipDeflate",
+				"level": "Fastest"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

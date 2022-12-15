@@ -1,0 +1,33 @@
+{
+	"name": "RAW_DATA_SET",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LSKEDARINATHGEN2",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"RAW_DATA_FILE": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().RAW_DATA_FILE",
+					"type": "Expression"
+				},
+				"folderPath": "kedarinath/RS_RAW",
+				"fileSystem": "vfislktraining"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": false,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

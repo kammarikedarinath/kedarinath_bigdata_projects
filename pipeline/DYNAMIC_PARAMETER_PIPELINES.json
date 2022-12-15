@@ -1,0 +1,134 @@
+{
+	"name": "DYNAMIC_PARAMETER_PIPELINES",
+	"properties": {
+		"description": "execute pipeline with dynamic data set parmeters",
+		"activities": [
+			{
+				"name": "Lookup1",
+				"description": "Get the the meta data table information",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "SELECT\n     b.[ObjectName]\n    ,FolderName = b.[ObjectValue]\n    ,SQLTable   = s.[ObjectValue]\n    ,Delimiter  = d.[ObjectValue]\nFROM [dbo].[Metadata_ADF] b\nJOIN [dbo].[Metadata_ADF] s ON b.[ObjectName] = s.[ObjectName]\nJOIN [dbo].[Metadata_ADF] d ON b.[ObjectName] = d.[ObjectName]\nWHERE   b.[SourceType] = 'BlobContainer'\n    AND s.[SourceType] = 'SQLTable'\n    AND d.[SourceType] = 'Delimiter';",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "DYNAMICSQLTABLE",
+						"type": "DatasetReference",
+						"parameters": {
+							"SQLTable": "1"
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup1').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"wildcardFileName": "*.csv",
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "DynamicDataSet",
+									"type": "DatasetReference",
+									"parameters": {
+										"FolderName": {
+											"value": "@{item().FolderName}",
+											"type": "Expression"
+										},
+										"Delimiter": {
+											"value": "@{item().Delimiter}",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DYNAMICSQLTABLE",
+									"type": "DatasetReference",
+									"parameters": {
+										"SQLTable": {
+											"value": "@{item().SQLTable}",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2022-12-01T10:47:13Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

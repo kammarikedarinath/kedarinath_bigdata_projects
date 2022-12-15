@@ -1,0 +1,44 @@
+{
+	"name": "Testing",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get Metadata1",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "DESKTOPFILE",
+						"type": "DatasetReference",
+						"parameters": {
+							"directory": "\\Users\\Admin\\Desktop\\ADF-Training-main\\PROJECT\\Testing",
+							"filename": "hospital_admissions.csv"
+						}
+					},
+					"fieldList": [
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "FileServerReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2022-12-15T04:19:41Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
