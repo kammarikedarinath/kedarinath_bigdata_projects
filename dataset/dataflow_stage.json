@@ -1,13 +1,13 @@
 {
-	"name": "RAW_DATA_SET",
+	"name": "dataflow_stage",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LSKEDARINATHGEN2",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"RAW_DATA_FILE": {
-				"type": "string"
+			"filename": {
+				"type": "String"
 			}
 		},
 		"annotations": [],
@@ -16,10 +16,10 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": {
-					"value": "@dataset().RAW_DATA_FILE",
+					"value": "@dataset().filename",
 					"type": "Expression"
 				},
-				"folderPath": "kedarinath/RS_RAW",
+				"folderPath": "kedarinath/RS_STAGE",
 				"fileSystem": "vfislktraining"
 			},
 			"columnDelimiter": ",",
@@ -27,7 +27,19 @@
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": []
-	},
-	"type": "Microsoft.DataFactory/factories/datasets"
+		"schema": [
+			{
+				"name": "1",
+				"type": "String"
+			},
+			{
+				"name": "ravi",
+				"type": "String"
+			},
+			{
+				"name": "2022-20-03",
+				"type": "String"
+			}
+		]
+	}
 }
