@@ -91,49 +91,39 @@
 				"type": "AzureSqlTable",
 				"schema": [
 					{
-						"name": "CustomerID",
+						"name": "Country",
 						"type": "varchar"
 					},
 					{
-						"name": "Title",
+						"name": "Indicator",
 						"type": "varchar"
 					},
 					{
-						"name": "Firstname",
+						"name": "Date",
+						"type": "date"
+					},
+					{
+						"name": "Year_Week",
 						"type": "varchar"
 					},
 					{
-						"name": "MiddleName",
+						"name": "Value",
+						"type": "decimal",
+						"precision": 22,
+						"scale": 4
+					},
+					{
+						"name": "Source",
 						"type": "varchar"
 					},
 					{
-						"name": "LastName",
-						"type": "varchar"
-					},
-					{
-						"name": "Suffix",
-						"type": "varchar"
-					},
-					{
-						"name": "CompanyName",
-						"type": "varchar"
-					},
-					{
-						"name": "SalesPerson",
-						"type": "varchar"
-					},
-					{
-						"name": "EmailAddress",
-						"type": "varchar"
-					},
-					{
-						"name": "Phone",
+						"name": "Url",
 						"type": "varchar"
 					}
 				],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "customer"
+					"table": "HOSPITAL_ADMISSIONS"
 				}
 			},
 			"dependsOn": [
