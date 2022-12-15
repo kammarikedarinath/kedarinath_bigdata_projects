@@ -1,0 +1,41 @@
+{
+	"name": "testing1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Validation1",
+				"type": "Validation",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "DESKTOPFILE",
+						"type": "DatasetReference",
+						"parameters": {
+							"directory": {
+								"value": "@pipeline().parameters.dr",
+								"type": "Expression"
+							},
+							"filename": {
+								"value": "@pipeline().parameters.fl",
+								"type": "Expression"
+							}
+						}
+					},
+					"timeout": "0.00:01:00",
+					"sleep": 10,
+					"minimumSize": 20
+				}
+			}
+		],
+		"parameters": {
+			"dr": {
+				"type": "string"
+			},
+			"fl": {
+				"type": "string"
+			}
+		},
+		"annotations": []
+	}
+}
