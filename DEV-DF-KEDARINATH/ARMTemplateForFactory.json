@@ -2327,7 +2327,7 @@
 						"     ),",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true) ~> select1",
-						"select1 derive(date = iif(isNull({date}),toTimestamp(2020-11-28,'YYYY-MM-DD'),toTimestamp(toString(date),'YYYY-MM-DD'))\r",
+						"select1 derive(date = iif(isNull({date}),toTimestamp(toString(2020-11-28)),toTimestamp(date))\r",
 						") ~> derivedColumn1",
 						"derivedColumn1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
