@@ -153,6 +153,18 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
+								"dataflow": {
+									"referenceName": "dataflow3",
+									"type": "DataFlowReference",
+									"datasetParameters": {
+										"source1": {
+											"RAW_DATA_FILE": {
+												"value": "@pipeline().parameters.fl",
+												"type": "Expression"
+											}
+										}
+									}
+								},
 								"compute": {
 									"coreCount": 8,
 									"computeType": "General"
