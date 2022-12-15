@@ -162,6 +162,12 @@
 												"value": "@pipeline().parameters.fl",
 												"type": "Expression"
 											}
+										},
+										"sink1": {
+											"filename": {
+												"value": "@pipeline().parameters.fl",
+												"type": "Expression"
+											}
 										}
 									}
 								},
