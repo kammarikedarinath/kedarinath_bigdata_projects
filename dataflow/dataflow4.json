@@ -13,12 +13,40 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "select1"
+				},
+				{
+					"name": "derivedColumn1"
+				}
+			],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          country as string,",
+				"          indicator as string,",
+				"          date as date,",
+				"          year_week as string,",
+				"          value as double,",
+				"          source as string,",
+				"          url as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
-				"     skipLines: 1) ~> source1"
+				"     skipLines: 1) ~> source1",
+				"source1 select(mapColumn(",
+				"          country,",
+				"          indicator,",
+				"          date,",
+				"          {year&week} = year_week,",
+				"          value,",
+				"          source,",
+				"          url",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 derive(date = iif(isNull({date}),toString(2020-11-28),toString({date}))) ~> derivedColumn1"
 			]
 		}
 	}
