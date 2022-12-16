@@ -1319,7 +1319,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"expression": {
-								"value": "@greater(int(activity('Validation1').output.size),21170800)\n\n",
+								"value": "@greater(int(activity('Validation1').output.size),211)\n\n",
 								"type": "Expression"
 							},
 							"ifTrueActivities": [
