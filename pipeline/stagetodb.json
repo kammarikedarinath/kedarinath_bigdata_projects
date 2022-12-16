@@ -94,7 +94,7 @@
 									"type": "Decimal",
 									"physicalType": "decimal",
 									"scale": 4,
-									"precision": 30
+									"precision": 22
 								}
 							},
 							{
