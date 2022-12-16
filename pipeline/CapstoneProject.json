@@ -46,12 +46,13 @@
 					},
 					"ifFalseActivities": [
 						{
-							"name": "Wait1",
-							"type": "Wait",
+							"name": "Fail2",
+							"type": "Fail",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"waitTimeInSeconds": 12
+								"message": "ifcondition failed please ceck",
+								"errorCode": "400"
 							}
 						}
 					],
@@ -232,6 +233,12 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "Fail1",
+				"type": "Fail",
+				"dependsOn": [],
+				"userProperties": []
 			}
 		],
 		"parameters": {
