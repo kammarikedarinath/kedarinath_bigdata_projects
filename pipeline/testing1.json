@@ -195,7 +195,17 @@
 									"referenceName": "stagetodb",
 									"type": "PipelineReference"
 								},
-								"waitOnCompletion": true
+								"waitOnCompletion": true,
+								"parameters": {
+									"database": {
+										"value": "@pipeline().parameters.database",
+										"type": "Expression"
+									},
+									"tablename": {
+										"value": "@pipeline().parameters.tablename",
+										"type": "Expression"
+									}
+								}
 							}
 						}
 					]
