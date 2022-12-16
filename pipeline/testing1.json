@@ -179,8 +179,8 @@
 							}
 						},
 						{
-							"name": "Copy data2",
-							"type": "Copy",
+							"name": "Execute Pipeline1",
+							"type": "ExecutePipeline",
 							"dependsOn": [
 								{
 									"activity": "Data flow1",
@@ -189,150 +189,14 @@
 									]
 								}
 							],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
 							"userProperties": [],
 							"typeProperties": {
-								"source": {
-									"type": "DelimitedTextSource",
-									"storeSettings": {
-										"type": "AzureBlobFSReadSettings",
-										"recursive": true,
-										"wildcardFolderPath": "kedarinath/RS_STAGE/",
-										"wildcardFileName": "*.csv",
-										"enablePartitionDiscovery": false
-									},
-									"formatSettings": {
-										"type": "DelimitedTextReadSettings"
-									}
+								"pipeline": {
+									"referenceName": "stagetodb",
+									"type": "PipelineReference"
 								},
-								"sink": {
-									"type": "AzureSqlSink",
-									"writeBehavior": "insert",
-									"sqlWriterUseTableLock": false,
-									"disableMetricsCollection": false
-								},
-								"enableStaging": false,
-								"translator": {
-									"type": "TabularTranslator",
-									"mappings": [
-										{
-											"source": {
-												"name": "country",
-												"type": "String",
-												"physicalType": "String"
-											},
-											"sink": {
-												"name": "Country",
-												"type": "String",
-												"physicalType": "varchar"
-											}
-										},
-										{
-											"source": {
-												"name": "indicator",
-												"type": "String",
-												"physicalType": "String"
-											},
-											"sink": {
-												"name": "Indicator",
-												"type": "String",
-												"physicalType": "varchar"
-											}
-										},
-										{
-											"source": {
-												"name": "date",
-												"type": "String",
-												"physicalType": "String"
-											},
-											"sink": {
-												"name": "Date",
-												"type": "DateTime",
-												"physicalType": "date"
-											}
-										},
-										{
-											"source": {
-												"name": "year&week",
-												"type": "String",
-												"physicalType": "String"
-											},
-											"sink": {
-												"name": "Year_Week",
-												"type": "String",
-												"physicalType": "varchar"
-											}
-										},
-										{
-											"source": {
-												"name": "value",
-												"type": "String",
-												"physicalType": "String"
-											},
-											"sink": {
-												"name": "Value",
-												"type": "Decimal",
-												"physicalType": "decimal",
-												"scale": 4,
-												"precision": 22
-											}
-										},
-										{
-											"source": {
-												"name": "source",
-												"type": "String",
-												"physicalType": "String"
-											},
-											"sink": {
-												"name": "Source",
-												"type": "String",
-												"physicalType": "varchar"
-											}
-										},
-										{
-											"source": {
-												"name": "url",
-												"type": "String",
-												"physicalType": "String"
-											},
-											"sink": {
-												"name": "Url",
-												"type": "String",
-												"physicalType": "varchar"
-											}
-										}
-									],
-									"typeConversion": true,
-									"typeConversionSettings": {
-										"allowDataTruncation": true,
-										"treatBooleanAsNumber": false
-									}
-								}
-							},
-							"inputs": [
-								{
-									"referenceName": "DATASET_ON_STAGE",
-									"type": "DatasetReference",
-									"parameters": {
-										"STAGE_FILENAME": {
-											"value": "part-00000-*.*",
-											"type": "Expression"
-										}
-									}
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "AzureSqlTable1",
-									"type": "DatasetReference"
-								}
-							]
+								"waitOnCompletion": true
+							}
 						}
 					]
 				}
@@ -343,6 +207,12 @@
 				"type": "string"
 			},
 			"fl": {
+				"type": "string"
+			},
+			"database": {
+				"type": "string"
+			},
+			"tablename": {
 				"type": "string"
 			}
 		},
