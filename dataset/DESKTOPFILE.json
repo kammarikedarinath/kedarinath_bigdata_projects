@@ -2,7 +2,7 @@
 	"name": "DESKTOPFILE",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "KKNDESKTOPFILESYSTEM",
+			"referenceName": "ConnectolocalsystemIIT",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
