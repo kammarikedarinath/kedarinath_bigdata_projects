@@ -150,6 +150,17 @@
 						"value": "@equals(int(activity('Copy data1').output.rowsRead),int(activity('Copy data1').output.rowsCopied))",
 						"type": "Expression"
 					},
+					"ifFalseActivities": [
+						{
+							"name": "Wait2",
+							"type": "Wait",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": 120
+							}
+						}
+					],
 					"ifTrueActivities": [
 						{
 							"name": "Data flow1",
