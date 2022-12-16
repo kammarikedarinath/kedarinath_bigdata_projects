@@ -34,6 +34,94 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "country",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Country",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "indicator",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Indicator",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "date",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Date",
+									"type": "DateTime",
+									"physicalType": "date"
+								}
+							},
+							{
+								"source": {
+									"name": "year&week",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Year_Week",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "value",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Value",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 4,
+									"precision": 22
+								}
+							},
+							{
+								"source": {
+									"name": "source",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Source",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "url",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Url",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
