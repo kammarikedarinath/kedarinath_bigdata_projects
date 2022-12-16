@@ -67,8 +67,8 @@
 								},
 								"sink": {
 									"name": "Date",
-									"type": "DateTime",
-									"physicalType": "date"
+									"type": "String",
+									"physicalType": "varchar"
 								}
 							},
 							{
@@ -91,8 +91,10 @@
 								},
 								"sink": {
 									"name": "Value",
-									"type": "String",
-									"physicalType": "varchar"
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 4,
+									"precision": 30
 								}
 							},
 							{
