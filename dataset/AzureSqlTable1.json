@@ -41,7 +41,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "HOSPITAL_ADMISSIONS"
+			"table": "Hospital_adm2"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
