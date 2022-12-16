@@ -145,6 +145,16 @@
 				]
 			}
 		],
+		"parameters": {
+			"database": {
+				"type": "string",
+				"defaultValue": "dbo"
+			},
+			"tablename": {
+				"type": "string",
+				"defaultValue": "Hospital_ADMISSIONS"
+			}
+		},
 		"annotations": []
 	}
 }
