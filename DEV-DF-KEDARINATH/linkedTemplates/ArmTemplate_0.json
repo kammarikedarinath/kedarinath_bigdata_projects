@@ -87,6 +87,14 @@
 					"referenceName": "LS_KKNAzureSqlDatabase",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"database": {
+						"type": "string"
+					},
+					"tablename": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [
@@ -122,8 +130,14 @@
 					}
 				],
 				"typeProperties": {
-					"schema": "dbo",
-					"table": "Hospital_adm2"
+					"schema": {
+						"value": "@dataset().database",
+						"type": "Expression"
+					},
+					"table": {
+						"value": "@dataset().tablename",
+						"type": "Expression"
+					}
 				}
 			},
 			"dependsOn": [

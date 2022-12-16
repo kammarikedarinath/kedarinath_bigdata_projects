@@ -643,7 +643,10 @@
 							{
 								"referenceName": "AzureSqlTable1",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"database": "dbo",
+									"tablename": "sometable"
+								}
 							}
 						]
 					}
@@ -960,6 +963,8 @@
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
 									"recursive": true,
+									"wildcardFolderPath": "kedarinath/RS_STAGE",
+									"wildcardFileName": "*.csv",
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
@@ -969,7 +974,8 @@
 							"sink": {
 								"type": "AzureSqlSink",
 								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
 							"translator": {
@@ -1007,8 +1013,8 @@
 										},
 										"sink": {
 											"name": "Date",
-											"type": "String",
-											"physicalType": "varchar"
+											"type": "DateTime",
+											"physicalType": "date"
 										}
 									},
 									{
@@ -1031,8 +1037,10 @@
 										},
 										"sink": {
 											"name": "Value",
-											"type": "String",
-											"physicalType": "varchar"
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 4,
+											"precision": 22
 										}
 									},
 									{
@@ -1078,7 +1086,16 @@
 							{
 								"referenceName": "AzureSqlTable1",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"database": {
+										"value": "@pipeline().parameters.database",
+										"type": "Expression"
+									},
+									"tablename": {
+										"value": "@pipeline().parameters.tablename",
+										"type": "Expression"
+									}
+								}
 							}
 						]
 					}
@@ -1086,6 +1103,16 @@
 				"policy": {
 					"elapsedTimeMetric": {},
 					"cancelAfter": {}
+				},
+				"parameters": {
+					"database": {
+						"type": "string",
+						"defaultValue": "dbo"
+					},
+					"tablename": {
+						"type": "string",
+						"defaultValue": "Hospital_ADMISSIONS"
+					}
 				},
 				"annotations": []
 			},
@@ -1095,7 +1122,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/testing1')]",
+			"name": "[concat(parameters('factoryName'), '/CapstoneProject')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1279,8 +1306,8 @@
 									}
 								},
 								{
-									"name": "Copy data2",
-									"type": "Copy",
+									"name": "Execute Pipeline1",
+									"type": "ExecutePipeline",
 									"dependsOn": [
 										{
 											"activity": "Data flow1",
@@ -1289,151 +1316,24 @@
 											]
 										}
 									],
-									"policy": {
-										"timeout": "0.12:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
 									"userProperties": [],
 									"typeProperties": {
-										"source": {
-											"type": "DelimitedTextSource",
-											"storeSettings": {
-												"type": "AzureBlobFSReadSettings",
-												"recursive": true,
-												"wildcardFolderPath": "kedarinath/RS_STAGE/",
-												"wildcardFileName": "*.csv",
-												"enablePartitionDiscovery": false
+										"pipeline": {
+											"referenceName": "stagetodb",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"database": {
+												"value": "@pipeline().parameters.database",
+												"type": "Expression"
 											},
-											"formatSettings": {
-												"type": "DelimitedTextReadSettings"
-											}
-										},
-										"sink": {
-											"type": "AzureSqlSink",
-											"writeBehavior": "insert",
-											"sqlWriterUseTableLock": false,
-											"disableMetricsCollection": false
-										},
-										"enableStaging": false,
-										"translator": {
-											"type": "TabularTranslator",
-											"mappings": [
-												{
-													"source": {
-														"name": "country",
-														"type": "String",
-														"physicalType": "String"
-													},
-													"sink": {
-														"name": "Country",
-														"type": "String",
-														"physicalType": "varchar"
-													}
-												},
-												{
-													"source": {
-														"name": "indicator",
-														"type": "String",
-														"physicalType": "String"
-													},
-													"sink": {
-														"name": "Indicator",
-														"type": "String",
-														"physicalType": "varchar"
-													}
-												},
-												{
-													"source": {
-														"name": "date",
-														"type": "String",
-														"physicalType": "String"
-													},
-													"sink": {
-														"name": "Date",
-														"type": "DateTime",
-														"physicalType": "date"
-													}
-												},
-												{
-													"source": {
-														"name": "year&week",
-														"type": "String",
-														"physicalType": "String"
-													},
-													"sink": {
-														"name": "Year_Week",
-														"type": "String",
-														"physicalType": "varchar"
-													}
-												},
-												{
-													"source": {
-														"name": "value",
-														"type": "String",
-														"physicalType": "String"
-													},
-													"sink": {
-														"name": "Value",
-														"type": "Decimal",
-														"physicalType": "decimal",
-														"scale": 4,
-														"precision": 22
-													}
-												},
-												{
-													"source": {
-														"name": "source",
-														"type": "String",
-														"physicalType": "String"
-													},
-													"sink": {
-														"name": "Source",
-														"type": "String",
-														"physicalType": "varchar"
-													}
-												},
-												{
-													"source": {
-														"name": "url",
-														"type": "String",
-														"physicalType": "String"
-													},
-													"sink": {
-														"name": "Url",
-														"type": "String",
-														"physicalType": "varchar"
-													}
-												}
-											],
-											"typeConversion": true,
-											"typeConversionSettings": {
-												"allowDataTruncation": true,
-												"treatBooleanAsNumber": false
+											"tablename": {
+												"value": "@pipeline().parameters.tablename",
+												"type": "Expression"
 											}
 										}
-									},
-									"inputs": [
-										{
-											"referenceName": "DATASET_ON_STAGE",
-											"type": "DatasetReference",
-											"parameters": {
-												"STAGE_FILENAME": {
-													"value": "part-00000-*.*",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "AzureSqlTable1",
-											"type": "DatasetReference",
-											"parameters": {}
-										}
-									]
+									}
 								}
 							]
 						}
@@ -1449,6 +1349,12 @@
 					},
 					"fl": {
 						"type": "string"
+					},
+					"database": {
+						"type": "string"
+					},
+					"tablename": {
+						"type": "string"
 					}
 				},
 				"annotations": []
@@ -1457,8 +1363,7 @@
 				"[concat(variables('factoryId'), '/datasets/DESKTOPFILE')]",
 				"[concat(variables('factoryId'), '/datasets/RAW_DATA_SET')]",
 				"[concat(variables('factoryId'), '/dataflows/dataflow4')]",
-				"[concat(variables('factoryId'), '/datasets/DATASET_ON_STAGE')]",
-				"[concat(variables('factoryId'), '/datasets/AzureSqlTable1')]"
+				"[concat(variables('factoryId'), '/pipelines/stagetodb')]"
 			]
 		},
 		{
@@ -1589,6 +1494,14 @@
 					"referenceName": "LS_KKNAzureSqlDatabase",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"database": {
+						"type": "string"
+					},
+					"tablename": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [
@@ -1624,8 +1537,14 @@
 					}
 				],
 				"typeProperties": {
-					"schema": "dbo",
-					"table": "Hospital_adm2"
+					"schema": {
+						"value": "@dataset().database",
+						"type": "Expression"
+					},
+					"table": {
+						"value": "@dataset().tablename",
+						"type": "Expression"
+					}
 				}
 			},
 			"dependsOn": [
@@ -1778,7 +1697,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "KKNDESKTOPFILESYSTEM",
+					"referenceName": "ConnectolocalsystemIIT",
 					"type": "LinkedServiceReference"
 				},
 				"parameters": {
@@ -1811,7 +1730,7 @@
 				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/KKNDESKTOPFILESYSTEM')]"
+				"[concat(variables('factoryId'), '/linkedServices/ConnectolocalsystemIIT')]"
 			]
 		},
 		{
@@ -2315,7 +2234,6 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "part-00000-498a3856-519e-4dc7-a9eb-e9d88936a211-c000.csv",
 						"folderPath": "kedarinath/RS_STAGE",
 						"fileSystem": "vfislktraining"
 					},
