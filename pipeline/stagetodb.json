@@ -91,10 +91,8 @@
 								},
 								"sink": {
 									"name": "Value",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 4,
-									"precision": 22
+									"type": "String",
+									"physicalType": "varchar"
 								}
 							},
 							{
