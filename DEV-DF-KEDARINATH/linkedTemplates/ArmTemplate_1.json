@@ -1322,6 +1322,17 @@
 								"value": "@greater(int(activity('Validation1').output.size),211)\n\n",
 								"type": "Expression"
 							},
+							"ifFalseActivities": [
+								{
+									"name": "Wait1",
+									"type": "Wait",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"waitTimeInSeconds": 12
+									}
+								}
+							],
 							"ifTrueActivities": [
 								{
 									"name": "Copy data1",
@@ -1417,6 +1428,17 @@
 								"value": "@equals(int(activity('Copy data1').output.rowsRead),int(activity('Copy data1').output.rowsCopied))",
 								"type": "Expression"
 							},
+							"ifFalseActivities": [
+								{
+									"name": "Wait2",
+									"type": "Wait",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"waitTimeInSeconds": 120
+									}
+								}
+							],
 							"ifTrueActivities": [
 								{
 									"name": "Data flow1",
