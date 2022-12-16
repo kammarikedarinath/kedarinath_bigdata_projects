@@ -153,12 +153,13 @@
 					},
 					"ifFalseActivities": [
 						{
-							"name": "Wait2",
-							"type": "Wait",
+							"name": "secondfail",
+							"type": "Fail",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"waitTimeInSeconds": 120
+								"message": "second if condition failed ",
+								"errorCode": "400"
 							}
 						}
 					],
