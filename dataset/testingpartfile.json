@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "part-00000-498a3856-519e-4dc7-a9eb-e9d88936a211-c000.csv",
+				"fileName": "*.csv",
 				"folderPath": "kedarinath/RS_STAGE",
 				"fileSystem": "vfislktraining"
 			},
