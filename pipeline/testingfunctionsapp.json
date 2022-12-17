@@ -15,15 +15,15 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"functionName": "main",
-					"method": "GET"
+					"functionName": "kedarinathfuntionapp",
+					"method": "POST",
+					"headers": {
+						"name": "kedarinath"
+					}
 				},
 				"linkedServiceName": {
 					"referenceName": "AzureFunction1",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"name": "itistestingapp"
-					}
+					"type": "LinkedServiceReference"
 				}
 			}
 		],
